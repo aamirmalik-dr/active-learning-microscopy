@@ -9,6 +9,8 @@ running it writes one JSON file under ``results/``. Modes:
 * ``defect_search``: defects-found-versus-budget curves per strategy.
 * ``sparsity_sweep``: fraction of defects found at a fixed budget as the
   defect count varies.
+* ``size_sweep``: fraction of defects found at a fixed budget as the
+  defect size varies (the operating-point check for raster coverage).
 * ``misspecification``: active design with a pinned (wrong) surrogate
   lengthscale against Latin-hypercube, both scored through the same
   pinned-lengthscale reconstructor.

@@ -318,8 +318,9 @@ for name, block in fair["strategies"].items():
   coarse-to-fine raster, but the margin over a good space-filling design is
   a fraction, not an order of magnitude. The order-of-magnitude savings
   claim only holds against the raster habit.
-- The advantage comes from online hyperparameter adaptation plus mild edge
-  weighting, and it survives scoring through non-GP reconstructors.
+- The advantage comes from online hyperparameter adaptation (with fixed
+  hyperparameters, variance sampling degenerates to greedy space-filling),
+  and it survives scoring through non-GP reconstructors.
 - Defect hunting is where active decisions change the outcome qualitatively:
   expected exceedance converts one lucky graze into a found defect, which
   space-filling designs cannot do.

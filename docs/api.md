@@ -96,6 +96,15 @@ Every strategy is scored through the same reconstructor, so the benchmark
 compares designs, not reconstruction tricks. `interp_reconstruct` (cubic,
 GP-free) exists for the fairness check in `configs/fairness.yaml`.
 
+`lattice_coverage_fraction(stride, radius)` gives the geometric hit
+probability of a completed raster pass against a defect core, the quantity
+behind the size-sweep discussion in RESULTS.md:
+
+```python
+from activescan import lattice_coverage_fraction
+lattice_coverage_fraction(4.0, 2.355)   # 0.939: stride-4 pass vs a sigma-2 core
+```
+
 ## Benchmarks
 
 ```python
@@ -106,8 +115,8 @@ result["strategies"]["active_variance"]["mean"]     # RMSE per budget checkpoint
 ```
 
 Modes: `reconstruction`, `noise_sweep`, `defect_search`, `sparsity_sweep`,
-`misspecification`, `fairness`. Every config fixes its seeds; replicate seeds
-regenerate both the scene and the noise.
+`size_sweep`, `misspecification`, `fairness`. Every config fixes its seeds;
+replicate seeds regenerate both the scene and the noise.
 
 ## Persistence and external data
 

@@ -1,8 +1,10 @@
 # Operating-point check for raster-vs-hunt parity: a coarse-to-fine raster at
-# 300 points has completed its stride-4 pass, which covers every position to
-# within 2.83 px, so it cannot miss defects with core radius >= 2.35 px
-# (sigma 2.0). Shrink the defects and the geometric guarantee breaks; grow
-# them and any design finds everything. Sweep defect sigma at fixed count.
+# 300 points has completed its stride-4 pass, which puts every position within
+# 2.83 px of a sample. A hit is only guaranteed for core radius >= 2.83 px
+# (defect sigma >= 2.40); at sigma 2.0 (core 2.35 px) the pass covers 94
+# percent of possible centres, at sigma 1.5 it covers 61 percent, at sigma 1.0
+# just 27 percent (activescan.metrics.lattice_coverage_fraction). Sweep defect
+# sigma at fixed count to watch the coverage story play out.
 mode: size_sweep
 out: results/size_sweep.json
 scene:
