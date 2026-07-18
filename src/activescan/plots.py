@@ -286,10 +286,26 @@ def plot_sweep(
     ylabel: str,
     title: str,
     logy: bool = False,
+    overlay: tuple[list[float], list[float], str] | None = None,
 ) -> None:
-    """Generic per-strategy sweep plot (noise sweep, sparsity sweep)."""
+    """Generic per-strategy sweep plot (noise sweep, sparsity sweep).
+
+    Args:
+        result: Benchmark JSON dictionary.
+        path: Output path.
+        x_key: Key of the x-axis values in the result.
+        xlabel: X-axis label.
+        ylabel: Y-axis label.
+        title: Plot title.
+        logy: Log-scale the y axis.
+        overlay: Optional (xs, ys, label) reference line drawn dashed black,
+            e.g. a geometric prediction to compare the measured curves with.
+    """
     fig, ax = plt.subplots(figsize=(6.4, 4.4))
     xs = result[x_key]
+    if overlay is not None:
+        ox, oy, olabel = overlay
+        ax.plot(ox, oy, color="k", ls="--", lw=1.3, label=olabel, zorder=1)
     for name, block in result["strategies"].items():
         mean = np.array(block["mean"])
         std = np.array(block["std"])

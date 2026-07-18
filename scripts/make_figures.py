@@ -22,7 +22,7 @@ from activescan import (
     make_scene,
     run_strategy,
 )
-from activescan.metrics import defect_hit_steps
+from activescan.metrics import defect_hit_steps, lattice_coverage_fraction
 from activescan.plots import (
     STRATEGY_LABELS,
     animate_run,
@@ -151,13 +151,18 @@ def main() -> int:
         "fraction of defects found at 300 measurements",
         "defect sparsity sweep (3 seeds)",
     )
+    size_result = _load("size_sweep.json")
+    core = float(np.sqrt(2.0 * np.log(2.0)))
+    sigmas = [float(s) for s in size_result["defect_sigmas"]]
+    coverage = [lattice_coverage_fraction(4.0, core * s) for s in sigmas]
     plot_sweep(
-        _load("size_sweep.json"),
+        size_result,
         FIG / "size_sweep.png",
         "defect_sigmas",
         "defect sigma (px); core radius = 1.18 sigma",
         "fraction of defects found at 300 measurements",
-        "defect size sweep: where raster's coverage guarantee breaks (3 seeds)",
+        "defect size sweep: where raster's lattice coverage breaks (3 seeds)",
+        overlay=(sigmas, coverage, "stride-4 coverage of the core (geometry)"),
     )
     plot_misspecification(_load("misspecification.json"), FIG / "misspecification.png")
     plot_fairness(_load("fairness.json"), FIG / "fairness.png")
