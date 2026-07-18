@@ -64,6 +64,34 @@ def measurements_to_target(budgets: np.ndarray, errors: np.ndarray, target: floa
     return float(b0 + frac * (b1 - b0))
 
 
+def lattice_coverage_fraction(stride: float, radius: float, n: int = 1200) -> float:
+    """Fraction of the plane within a radius of a square lattice of points.
+
+    This is the geometric hit probability for a defect whose core radius is
+    ``radius`` against a completed raster pass of the given stride, assuming
+    the defect centre falls uniformly. It reaches 1.0 exactly at
+    ``radius >= stride / sqrt(2)`` (the half-diagonal of a lattice cell),
+    which is the only radius at which a raster pass carries a guarantee.
+
+    Args:
+        stride: Lattice spacing in pixels.
+        radius: Capture radius in pixels (e.g. the defect core radius).
+        n: Grid resolution per cell axis for the numerical estimate.
+
+    Returns:
+        Covered area fraction in [0, 1].
+    """
+    if stride <= 0:
+        raise ValueError("stride must be positive")
+    if radius >= stride * np.sqrt(0.5):
+        return 1.0
+    axis = (np.arange(n) + 0.5) / n * stride
+    xx, yy = np.meshgrid(axis, axis)
+    corners = [(0.0, 0.0), (0.0, stride), (stride, 0.0), (stride, stride)]
+    d = np.minimum.reduce([np.hypot(xx - cx, yy - cy) for cy, cx in corners])
+    return float(np.mean(d <= radius))
+
+
 def defect_hit_steps(scene: ScanScene, order: np.ndarray) -> np.ndarray:
     """First acquisition step (1-based) at which each defect was hit.
 

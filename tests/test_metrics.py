@@ -7,6 +7,7 @@ from activescan import (
     SceneParams,
     defect_hit_steps,
     defects_found_curve,
+    lattice_coverage_fraction,
     mae,
     make_scene,
     measurements_to_target,
@@ -71,3 +72,19 @@ def test_defects_found_curve_monotone():
 def test_no_defects_gives_empty_metrics():
     scene = make_scene(SceneParams(grid=32, n_defects=0, seed=0))
     assert defect_hit_steps(scene, np.array([0, 1])).size == 0
+
+
+def test_lattice_coverage_fraction_geometry():
+    """The numbers quoted in RESULTS.md section 5 are pinned here."""
+    core = np.sqrt(2.0 * np.log(2.0))  # half-amplitude core radius per unit sigma
+    # guarantee begins exactly at the half-diagonal of a stride cell
+    assert lattice_coverage_fraction(4.0, 4.0 * np.sqrt(0.5) + 1e-9) == 1.0
+    assert lattice_coverage_fraction(4.0, 3.0 * core) == 1.0
+    # sub-guarantee coverage fractions used in the docs (sigma 2.0, 1.5, 1.0)
+    assert lattice_coverage_fraction(4.0, 2.0 * core) == pytest.approx(0.939, abs=0.005)
+    assert lattice_coverage_fraction(4.0, 1.5 * core) == pytest.approx(0.612, abs=0.005)
+    assert lattice_coverage_fraction(4.0, 1.0 * core) == pytest.approx(0.272, abs=0.005)
+    # monotone in radius, degenerate at zero
+    assert lattice_coverage_fraction(4.0, 0.0) == 0.0
+    with pytest.raises(ValueError):
+        lattice_coverage_fraction(0.0, 1.0)

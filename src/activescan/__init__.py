@@ -12,6 +12,7 @@ from .io import load_external, load_run, load_scene, save_run, save_scene
 from .metrics import (
     defect_hit_steps,
     defects_found_curve,
+    lattice_coverage_fraction,
     mae,
     measurements_to_target,
     rmse,
@@ -47,6 +48,7 @@ __all__ = [
     "gp_reconstruct",
     "interp_reconstruct",
     "kernel_matrix",
+    "lattice_coverage_fraction",
     "lhs_design",
     "load_external",
     "load_run",
