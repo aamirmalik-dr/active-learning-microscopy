@@ -1,0 +1,15 @@
+# Reconstruction error at a fixed 150-measurement budget as measurement
+# noise grows from near-clean to noise comparable to the field variation.
+mode: noise_sweep
+out: results/noise_sweep.json
+scene:
+  grid: 64
+  length_scale: 10.0
+  field_kind: smooth
+budget: 150
+noise_sigmas: [0.05, 0.1, 0.2, 0.4, 0.8, 1.6]
+strategies: [random, lhs, active_variance]
+seeds: [0, 1, 2]
+n_init: 16
+refit_every: 25
+kernel: rbf

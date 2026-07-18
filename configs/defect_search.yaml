@@ -1,0 +1,18 @@
+# Defect discovery: how many of 8 rare defects each strategy finds as the
+# budget grows. A hit is a measurement inside the defect core (geometric).
+mode: defect_search
+out: results/defect_search.json
+scene:
+  grid: 64
+  length_scale: 10.0
+  field_kind: smooth
+  n_defects: 8
+  defect_amplitude: 5.0
+  defect_sigma: 2.0
+  noise_sigma: 0.3
+strategies: [random, lhs, raster, active_hunt]
+seeds: [0, 1, 2, 3, 4]
+checkpoints: [50, 100, 150, 200, 300, 400, 500]
+n_init: 16
+refit_every: 25
+kernel: rbf

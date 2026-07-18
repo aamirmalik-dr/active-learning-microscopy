@@ -1,0 +1,115 @@
+{
+  "lengthscale_factors": [
+    0.2,
+    1.0,
+    5.0
+  ],
+  "budget": 150,
+  "strategies": {
+    "lhs": {
+      "mean": [
+        0.5684109189957796,
+        0.14502464912415594,
+        0.28455184659985505,
+        0.12890358261697552
+      ],
+      "std": [
+        0.015805109973499668,
+        0.003654275321446796,
+        0.06321429740365293,
+        0.0063960431442077045
+      ],
+      "per_seed": [
+        [
+          0.5464125045329385,
+          0.14902055826068067,
+          0.36223054189097326,
+          0.13262506794316228
+        ],
+        [
+          0.5759816319873869,
+          0.14586484973432928,
+          0.20739036021233076,
+          0.11990302468462748
+        ],
+        [
+          0.582838620467013,
+          0.1401885393774579,
+          0.28403463769626097,
+          0.1341826552231368
+        ]
+      ]
+    },
+    "active_variance": {
+      "mean": [
+        0.3728524876769257,
+        0.15426879450354122,
+        0.3727412126230523,
+        0.13726493696772518
+      ],
+      "std": [
+        0.01999466932487635,
+        0.011824308091364342,
+        0.21123349014632095,
+        0.015702704936956777
+      ],
+      "per_seed": [
+        [
+          0.3634493595338344,
+          0.16970091248479563,
+          0.6702846524676618,
+          0.15788498275882532
+        ],
+        [
+          0.40064877166364204,
+          0.1409752187071357,
+          0.2009410951626694,
+          0.134094430665432
+        ],
+        [
+          0.35445933183330075,
+          0.15213025231869232,
+          0.24699789023882585,
+          0.11981539747891823
+        ]
+      ]
+    }
+  },
+  "note": "active designs use a surrogate whose lengthscale is pinned to factor x the true background lengthscale; both the active and the LHS design are scored through the same pinned-lengthscale reconstructor, so the comparison isolates the design decision. factor null means the lengthscale is fitted (well-specified reference).",
+  "columns": [
+    "pinned_0.2x",
+    "pinned_1x",
+    "pinned_5x",
+    "fitted"
+  ],
+  "mode": "misspecification",
+  "config": {
+    "mode": "misspecification",
+    "out": "results/misspecification.json",
+    "scene": {
+      "grid": 64,
+      "length_scale": 10.0,
+      "field_kind": "smooth",
+      "noise_sigma": 0.3
+    },
+    "budget": 150,
+    "lengthscale_factors": [
+      0.2,
+      1.0,
+      5.0
+    ],
+    "strategies": [
+      "lhs",
+      "active_variance"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "n_init": 16,
+    "refit_every": 25,
+    "kernel": "rbf"
+  },
+  "wall_time_s": 10.5
+}

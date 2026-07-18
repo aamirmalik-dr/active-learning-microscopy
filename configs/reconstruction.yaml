@@ -1,0 +1,16 @@
+# Headline benchmark: reconstruction error versus measurement budget on the
+# stationary smooth field. Full raster equivalent is 4096 measurements.
+mode: reconstruction
+out: results/reconstruction.json
+scene:
+  grid: 64
+  length_scale: 10.0
+  field_kind: smooth
+  noise_sigma: 0.3
+strategies: [random, lhs, raster, active_variance, active_gradient]
+seeds: [0, 1, 2, 3, 4]
+checkpoints: [25, 50, 75, 100, 150, 200, 300, 400]
+n_init: 16
+refit_every: 25
+kernel: rbf
+target_rmse: 0.15
