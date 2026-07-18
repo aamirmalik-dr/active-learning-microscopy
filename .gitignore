@@ -1,0 +1,18 @@
+# environments and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.ipynb_checkpoints/
+
+# large or local-only data; the committed sample scene is tracked explicitly
+data/external/
+data/full/
+scratch/
+
+# local run outputs (committed figures/results are tracked explicitly)
+runs/
+*.log

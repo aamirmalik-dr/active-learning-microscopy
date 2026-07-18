@@ -1,0 +1,217 @@
+{
+  "reconstruction": {
+    "grid_positions": 4096,
+    "rmse_at_100": {
+      "random": {
+        "mean": 0.2017,
+        "std": 0.0399
+      },
+      "lhs": {
+        "mean": 0.1982,
+        "std": 0.018
+      },
+      "raster": {
+        "mean": 0.1837,
+        "std": 0.0175
+      },
+      "active_variance": {
+        "mean": 0.1532,
+        "std": 0.0196
+      },
+      "active_gradient": {
+        "mean": 0.1559,
+        "std": 0.0167
+      }
+    },
+    "rmse_at_400": {
+      "random": {
+        "mean": 0.1004,
+        "std": 0.0133
+      },
+      "lhs": {
+        "mean": 0.0908,
+        "std": 0.0081
+      },
+      "raster": {
+        "mean": 0.1061,
+        "std": 0.0136
+      },
+      "active_variance": {
+        "mean": 0.0802,
+        "std": 0.007
+      },
+      "active_gradient": {
+        "mean": 0.0967,
+        "std": 0.0234
+      }
+    },
+    "budget_to_rmse_0p15": {
+      "random": 184.5,
+      "lhs": 143.7,
+      "raster": 198.7,
+      "active_variance": 113.8,
+      "active_gradient": 157.2
+    }
+  },
+  "nonstationary": {
+    "rmse_at_200": {
+      "lhs": {
+        "mean": 0.4283,
+        "std": 0.0645
+      },
+      "raster": {
+        "mean": 0.4527,
+        "std": 0.1006
+      },
+      "active_variance": {
+        "mean": 0.4072,
+        "std": 0.042
+      },
+      "active_gradient": {
+        "mean": 0.3797,
+        "std": 0.0234
+      }
+    }
+  },
+  "defect_search": {
+    "random": {
+      "found_of_40_at_500": 34,
+      "median_hit_step": 166.5
+    },
+    "lhs": {
+      "found_of_40_at_500": 35,
+      "median_hit_step": 270.0
+    },
+    "raster": {
+      "found_of_40_at_500": 40,
+      "median_hit_step": 123.5
+    },
+    "active_hunt": {
+      "found_of_40_at_500": 40,
+      "median_hit_step": 129.0
+    }
+  },
+  "sparsity_sweep": {
+    "random": {
+      "n2": 1.0,
+      "n4": 0.917,
+      "n8": 0.833,
+      "n16": 0.729
+    },
+    "lhs": {
+      "n2": 0.667,
+      "n4": 0.583,
+      "n8": 0.708,
+      "n16": 0.75
+    },
+    "active_hunt": {
+      "n2": 1.0,
+      "n4": 1.0,
+      "n8": 1.0,
+      "n16": 0.958
+    }
+  },
+  "size_sweep": {
+    "lhs": {
+      "sigma1": 0.375,
+      "sigma1.5": 0.417,
+      "sigma2": 0.708,
+      "sigma3": 1.0
+    },
+    "raster": {
+      "sigma1": 0.167,
+      "sigma1.5": 0.5,
+      "sigma2": 1.0,
+      "sigma3": 1.0
+    },
+    "active_hunt": {
+      "sigma1": 0.333,
+      "sigma1.5": 0.625,
+      "sigma2": 1.0,
+      "sigma3": 1.0
+    }
+  },
+  "noise_sweep": {
+    "random": {
+      "sigma0.05": 0.0324,
+      "sigma0.1": 0.0526,
+      "sigma0.2": 0.0907,
+      "sigma0.4": 0.1628,
+      "sigma0.8": 0.2888,
+      "sigma1.6": 0.4878
+    },
+    "lhs": {
+      "sigma0.05": 0.0358,
+      "sigma0.1": 0.0601,
+      "sigma0.2": 0.0982,
+      "sigma0.4": 0.1562,
+      "sigma0.8": 0.2552,
+      "sigma1.6": 0.3857
+    },
+    "active_variance": {
+      "sigma0.05": 0.0285,
+      "sigma0.1": 0.0525,
+      "sigma0.2": 0.1041,
+      "sigma0.4": 0.1844,
+      "sigma0.8": 0.2759,
+      "sigma1.6": 0.565
+    }
+  },
+  "misspecification": {
+    "columns": [
+      "pinned_0.2x",
+      "pinned_1x",
+      "pinned_5x",
+      "fitted"
+    ],
+    "lhs": [
+      0.5684,
+      0.145,
+      0.2846,
+      0.1289
+    ],
+    "active_variance": [
+      0.3729,
+      0.1543,
+      0.3727,
+      0.1373
+    ]
+  },
+  "fairness": {
+    "reconstructors": [
+      "gp_fitted",
+      "gp_reference_tuned",
+      "cubic_interp"
+    ],
+    "random": [
+      0.1862,
+      0.1869,
+      0.3738
+    ],
+    "lhs": [
+      0.1999,
+      0.2019,
+      0.3694
+    ],
+    "raster": [
+      0.1815,
+      0.1804,
+      0.316
+    ],
+    "active_variance": [
+      0.1554,
+      0.1532,
+      0.3153
+    ]
+  },
+  "wall_time_s": {
+    "reconstruction": 99.5,
+    "nonstationary": 88.9,
+    "noise_sweep": 21.7,
+    "defect_search": 58.1,
+    "sparsity_sweep": 37.2,
+    "size_sweep": 36.9,
+    "misspecification": 10.5,
+    "fairness": 104.1
+  }
+}

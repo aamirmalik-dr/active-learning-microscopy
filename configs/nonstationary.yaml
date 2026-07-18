@@ -1,0 +1,18 @@
+# Same protocol on the non-stationary grain field: sharp domain boundaries
+# violate the stationary-kernel assumption, so data-dependent acquisition
+# (gradient weighting) has something real to exploit.
+mode: reconstruction
+out: results/nonstationary.json
+scene:
+  grid: 64
+  length_scale: 10.0
+  field_kind: grains
+  n_grains: 12
+  noise_sigma: 0.3
+strategies: [lhs, raster, active_variance, active_gradient]
+seeds: [0, 1, 2, 3, 4]
+checkpoints: [25, 50, 75, 100, 150, 200, 300, 400]
+n_init: 16
+refit_every: 25
+kernel: rbf
+target_rmse: 0.35

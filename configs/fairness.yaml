@@ -1,0 +1,18 @@
+# Reconstructor-robustness check: the same designs scored through the
+# strategy's own fitted GP, a GP tuned on an independent 1000-point random
+# reference sample, and model-free cubic interpolation. If the strategy
+# ranking flips across reconstructors, the ranking is a scoring artifact.
+mode: fairness
+out: results/fairness.json
+scene:
+  grid: 64
+  length_scale: 10.0
+  field_kind: smooth
+  noise_sigma: 0.3
+budget: 100
+reference_points: 1000
+strategies: [random, lhs, raster, active_variance]
+seeds: [0, 1, 2]
+n_init: 16
+refit_every: 25
+kernel: rbf

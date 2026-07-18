@@ -1,0 +1,18 @@
+# The honest check: pin the surrogate lengthscale to 0.2x / 1x / 5x the true
+# background lengthscale. The active design AND the reconstruction share the
+# pinned lengthscale, and LHS is scored through the same reconstructor, so
+# the comparison isolates what a wrong surrogate does to the design.
+mode: misspecification
+out: results/misspecification.json
+scene:
+  grid: 64
+  length_scale: 10.0
+  field_kind: smooth
+  noise_sigma: 0.3
+budget: 150
+lengthscale_factors: [0.2, 1.0, 5.0]
+strategies: [lhs, active_variance]
+seeds: [0, 1, 2]
+n_init: 16
+refit_every: 25
+kernel: rbf
