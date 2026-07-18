@@ -1,5 +1,7 @@
 # active-learning-microscopy
 
+*Origin: Originally developed during the 4th Summer School on ML/AI for Electron Microscopy (June 2026); refactored and open-sourced in July 2026.*
+
 **Question: when does an autonomous microscope that decides where to measure
 next actually beat a well-designed dumb scan, and when does it lose?**
 
