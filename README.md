@@ -14,8 +14,9 @@ with exact ground truth, including the regimes where active learning fails.
 
 Everything is synthetic and physically motivated: a smooth property field
 (composition, thickness, strain) with a known correlation length, optional
-sharp grain boundaries, rare Gaussian defects, and Gaussian measurement
-noise standing in for shot-noise-limited dwell. Synthetic data is the point,
+sharp grain boundaries, rare Gaussian defects, and constant-variance
+Gaussian measurement noise, the high-count limit of shot noise when the
+property contrast is small next to the mean detected signal. Synthetic data is the point,
 not a compromise: it is the only way to score every strategy against exact
 ground truth over hundreds of controlled runs. Nothing here is fit to, or
 validated on, experimental data; the scope section says what that excludes.
@@ -51,8 +52,10 @@ family.
 **3. Uncertainty sampling without hyperparameter learning is just greedy
 space-filling, and a wrong surrogate turns active learning into the worst
 strategy in the comparison.** With the lengthscale pinned to its true value
-the active design ties LHS exactly as theory predicts (GP variance ignores
-the measured values), and with a 5x-too-long lengthscale it is 31 percent
+the active design is statistically indistinguishable from LHS (0.154 vs
+0.145), which is what theory predicts: with fixed hyperparameters the GP
+variance ignores the measured values, so the design degenerates to greedy
+space-filling. With a 5x-too-long lengthscale it is 31 percent
 worse than LHS with a 3x larger seed spread. High measurement noise is a
 second measured failure regime: at noise 1.6 active sampling is 46 percent
 worse than LHS, because the online hyperparameter fit destabilises exactly
@@ -62,12 +65,16 @@ when the data gets hard.
 reliably finishes, but a coarse-to-fine raster is embarrassingly strong at
 the right defect size.** The expected-exceedance hunt finds 40 of 40 defects
 across seeds by 300 measurements and leads mid-budget; random and LHS still
-miss one in eight at 500. But the raster also finds 40 of 40, because its
-stride-4 pass geometrically covers every core of radius 2.35 px. The
-operating-point check (`configs/size_sweep.yaml`) shows this parity is a
-coincidence of size: shrink defects to sigma 1.5 px and the hunt finds 62.5
-percent versus raster's 50; shrink to sigma 1.0 and every method fails,
-because there is no longer any signal for intelligence to exploit.
+miss one defect in seven or eight at 500. But the raster also finds 40 of
+40, because its completed stride-4 pass covers 94 percent of possible
+centres to within the 2.35 px core radius (a lattice guarantee only begins
+at radius 2.83 px, defect sigma 2.4), so the tie is near-complete coverage
+plus a favourable draw. The operating-point check
+(`configs/size_sweep.yaml`) shows the parity is a coincidence of size
+either way: shrink defects to sigma 1.5 px (61 percent coverage) and the
+hunt finds 62.5 percent versus raster's 50; shrink to sigma 1.0 and every
+method fails, because there is no longer any signal for intelligence to
+exploit.
 
 **5. On non-stationary grain structures, gradient-weighted acquisition helps
 modestly and consistently** (RMSE 0.380 vs 0.428 for LHS at 200
@@ -154,7 +161,7 @@ notebooks/          executed tutorial notebook
 docs/               API documentation + surrogate card
 figures/, results/  regenerable outputs of the committed configs
 scripts/            run_all, make_metrics, make_figures, build_notebook
-tests/              71 pytest tests
+tests/              72 pytest tests
 ```
 
 ## Scope and limitations

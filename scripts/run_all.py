@@ -2,8 +2,8 @@
 
     python scripts/run_all.py
 
-Total time is roughly 15 to 25 minutes on a laptop CPU; there is nothing to
-train, so there is no skip flag. Individual configs can be re-run with
+Total time is about 10 minutes on a laptop CPU; there is nothing to train,
+so there is no skip flag. Individual configs can be re-run with
 ``activescan benchmark configs/<name>.yaml``.
 """
 

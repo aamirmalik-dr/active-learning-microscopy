@@ -5,16 +5,19 @@ positions, with exact ground truth. The background varies on a length scale
 much larger than one pixel (a slowly varying composition, thickness, or
 strain signal); optional rare defects sit on top of it as narrow positive
 bumps. A measurement visits one grid position and returns the field value
-plus independent Gaussian noise, the shot-noise-limited model for a fixed
-dwell time. A full raster scan is one measurement at every grid position.
+plus independent Gaussian noise of constant variance. That is the
+high-count limit of shot noise at fixed dwell time, valid when the
+property contrast is small next to the mean detected signal; true
+signal-dependent (Poisson) noise is deliberately out of scope. A full
+raster scan is one measurement at every grid position.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import numpy as np
-from scipy.ndimage import distance_transform_edt, gaussian_filter
+from scipy.ndimage import gaussian_filter
 
 FIELD_KINDS = ("smooth", "grains")
 
@@ -64,7 +67,6 @@ class ScanScene:
     background: np.ndarray
     defect_centers: np.ndarray
     params: SceneParams
-    _rng_state: dict = field(default_factory=dict, repr=False)
 
     @property
     def grid(self) -> int:
@@ -178,19 +180,3 @@ def make_scene(params: SceneParams) -> ScanScene:
             r2 = (yy - cy) ** 2 + (xx - cx) ** 2
             fld += params.defect_amplitude * np.exp(-r2 / (2.0 * params.defect_sigma**2))
     return ScanScene(field=fld, background=background, defect_centers=centers, params=params)
-
-
-def boundary_distance(scene: ScanScene) -> np.ndarray:
-    """Distance (px) of every pixel to the nearest grain boundary.
-
-    Only meaningful for "grains" scenes; for "smooth" scenes returns an
-    array of +inf.
-    """
-    g = scene.grid
-    if scene.params.field_kind != "grains":
-        return np.full((g, g), np.inf)
-    grad_y, grad_x = np.gradient(scene.background)
-    edge = np.hypot(grad_y, grad_x) > 0.3
-    if not edge.any():
-        return np.full((g, g), np.inf)
-    return distance_transform_edt(~edge)

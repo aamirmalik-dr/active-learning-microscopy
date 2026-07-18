@@ -109,13 +109,18 @@ counts as found only when a measurement lands inside its half-amplitude
 core, a purely geometric criterion.
 
 Reading: the honest surprise is that a coarse-to-fine raster is an
-excellent defect finder at this defect size, because its completed stride-4
-pass covers every grid position to within 2.83 px and the defect core
-radius is 2.35 px, so full coverage is guaranteed near budget 300. The hunt
-acquisition (expected exceedance with a found-and-move-on exclusion) leads
-in the mid-budget window (5.4 vs 4.6 at 150, 6.8 vs 6.0 at 200) and ties
-the guarantee at 300. Random and LHS never reliably finish, still missing
-about one defect in eight at a 500-measurement budget.
+excellent defect finder at this defect size. Its stride-4 pass is complete
+by budget 256 and puts every position within 2.83 px of a sample; against
+the 2.35 px core radius that covers 93.9 percent of possible centre
+positions (`activescan.metrics.lattice_coverage_fraction(4, 2.355)`), and
+a guarantee would require core radius 2.83 px, i.e. defect sigma 2.40.
+Finding all 40 was therefore likely but not certain (about 2.4 expected
+misses under uniform placement; these five seeds happened to draw none).
+The hunt acquisition (expected exceedance with a found-and-move-on
+exclusion) leads in the mid-budget window (5.4 vs 4.6 at 150, 6.8 vs 6.0
+at 200) and matches the raster at 300. Random and LHS never reliably
+finish, still missing about one defect in seven or eight at a
+500-measurement budget.
 
 ## 5. Where the raster guarantee breaks: defect size
 
@@ -130,13 +135,16 @@ parity above. Fraction of 8 defects found at 300 measurements, 3 seeds:
 | 3.0 | 1.000 | 1.000 | 1.000 |
 
 Reading: raster's parity at sigma 2.0 is a geometric coincidence between
-the defect core and the stride ladder. Shrink defects to sigma 1.5 and the
-hunt finds 62.5 percent versus raster's 50 percent; at sigma 1.0 the cores
-(radius 1.18 px) slip between any affordable grid and defect tails carry
-almost no signal, so every method fails and the hunt has no advantage left
-(0.333 vs LHS 0.375, within one defect). Bayesian search needs a signal to
-exploit; when the anomaly footprint approaches a single pixel, nothing
-short of full-resolution coverage works.
+the defect core and the stride ladder, and the stride-4 coverage fraction
+of the core says exactly where it breaks: 94 percent at sigma 2.0, 61
+percent at sigma 1.5, 27 percent at sigma 1.0 (raster observed 1.00, 0.50,
+0.17, tracking the prediction within seed noise). Shrink defects to sigma
+1.5 and the hunt finds 62.5 percent versus raster's 50 percent; at sigma
+1.0 the cores (radius 1.18 px) slip between any affordable grid and defect
+tails carry almost no signal, so every method fails and the hunt has no
+advantage left (0.333 vs LHS 0.375, within one defect). Bayesian search
+needs a signal to exploit; when the anomaly footprint approaches a single
+pixel, nothing short of full-resolution coverage works.
 
 ## 6. Defect sparsity
 
@@ -152,9 +160,12 @@ measurements, 3 seeds:
 
 Reading: the hunt is at or near ceiling at every sparsity (its only misses
 are 2 of 48 defects at n = 16, where exclusion zones start crowding the
-field). LHS is poor here for a structural reason: its per-axis
-stratification does not control 2D point-to-point spacing, so its designs
-leave larger 2D gaps than random at these sizes.
+field). LHS earns no defect-finding advantage over random: its per-axis
+stratification controls 1D projections, not 2D point spacing, so its 2D
+coverage is essentially that of a random design (measured max-gap 6.2 px
+vs 6.4 px for random at this budget). The LHS-below-random cells in this
+table are within the noise of 3 seeds, and the defect-search benchmark
+above shows the two effectively tied (35 vs 34 of 40 at budget 500).
 
 ## 7. Surrogate misspecification (the honest check)
 
@@ -212,8 +223,8 @@ favours regular grids, which is why raster closes the gap there.
 ## Wall-clock
 
 Benchmark wall times on one laptop CPU core (from `results/metrics.json`):
-reconstruction 117 s, nonstationary 99 s, noise sweep 23 s, defect search
-59 s, sparsity sweep 37 s, size sweep 37 s, misspecification 11 s, fairness
-118 s. A single 400-measurement active run on the 4096-position grid takes
+reconstruction 100 s, nonstationary 89 s, noise sweep 22 s, defect search
+58 s, sparsity sweep 37 s, size sweep 37 s, misspecification 11 s, fairness
+104 s. A single 400-measurement active run on the 4096-position grid takes
 about 7 s, of which most is the periodic hyperparameter refits; the
 per-step posterior update is O(candidates x n) by rank-one updates.
