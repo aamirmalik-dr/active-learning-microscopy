@@ -46,9 +46,9 @@ def _style(ax: plt.Axes) -> None:
     ax.spines[["top", "right"]].set_visible(False)
 
 
-def _save(fig: plt.Figure, path: str | Path) -> None:
+def _save(fig: plt.Figure, path: str | Path, dpi: int = 150) -> None:
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=150, bbox_inches="tight")
+    fig.savefig(path, dpi=dpi, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -120,6 +120,7 @@ def hero_figure(
     runs: dict[str, tuple[RunResult, np.ndarray]],
     curves: dict[str, Any],
     path: str | Path,
+    dpi: int = 150,
 ) -> None:
     """The sampling-trajectory panel.
 
@@ -185,7 +186,7 @@ def hero_figure(
         f"on the same hidden field ({scene.n_positions}-point raster equivalent)",
         fontsize=12,
     )
-    _save(fig, path)
+    _save(fig, path, dpi=dpi)
 
 
 def animate_run(scene: ScanScene, run: RunResult, path: str | Path, fps: int = 4) -> None:
