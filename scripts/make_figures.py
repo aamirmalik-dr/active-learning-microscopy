@@ -66,7 +66,9 @@ def main() -> int:
         run = run_strategy(scene, name, HERO_BUDGET, seed=0)
         recon, _ = gp_reconstruct(scene, run.order, run.values)
         runs[name] = (run, recon)
-    hero_figure(scene, runs, _load("reconstruction.json"), FIG / "hero.png")
+    # Higher dpi so the short side clears 1080 px for social posts; layout,
+    # colormaps and fonts are unchanged.
+    hero_figure(scene, runs, _load("reconstruction.json"), FIG / "hero.png", dpi=175)
     print("wrote hero.png")
 
     # acquisition animation
