@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code, data, or benchmark results, please cite the repository."
+title: "active-learning-microscopy: simulated autonomous-microscopy benchmark of Gaussian-process active learning against space-filling scans"
+type: software
+authors:
+  - family-names: Malik
+    given-names: Aamir
+version: 0.1.0
+date-released: "2026-07-18"
+license: MIT
+repository-code: "https://github.com/aamirmalik-dr/active-learning-microscopy"
+keywords:
+  - active learning
+  - Gaussian process
+  - autonomous microscopy
+  - benchmark
+  - NumPy
