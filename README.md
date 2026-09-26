@@ -1,5 +1,7 @@
 # active-learning-microscopy
 
+[![ci](https://github.com/aamirmalik-dr/active-learning-microscopy/actions/workflows/ci.yml/badge.svg)](https://github.com/aamirmalik-dr/active-learning-microscopy/actions/workflows/ci.yml)
+
 **Question: when does an autonomous microscope that decides where to measure
 next actually beat a well-designed dumb scan, and when does it lose?**
 
