@@ -10,6 +10,18 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Aamir Malik" }]
+keywords = ["active learning", "Gaussian process", "autonomous microscopy", "autonomous experimentation", "Bayesian optimisation", "space-filling design", "uncertainty sampling", "benchmark", "NumPy"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
     "numpy>=1.24",
     "scipy>=1.10",
@@ -27,6 +39,12 @@ dev = [
     "ipykernel>=6.25",
     "pillow>=10.0",
 ]
+
+[project.urls]
+Repository = "https://github.com/aamirmalik-dr/active-learning-microscopy"
+Issues = "https://github.com/aamirmalik-dr/active-learning-microscopy/issues"
+Results = "https://github.com/aamirmalik-dr/active-learning-microscopy/blob/main/RESULTS.md"
+Changelog = "https://github.com/aamirmalik-dr/active-learning-microscopy/blob/main/CHANGELOG.md"
 
 [project.scripts]
 activescan = "activescan.cli:main"
